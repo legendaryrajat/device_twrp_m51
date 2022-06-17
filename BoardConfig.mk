@@ -39,7 +39,9 @@ BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
+TARGET_USES_MKE2FS := true
 TARGET_COPY_OUT_VENDOR := vendor
+BOARD_SUPPRESS_SECURE_ERASE := true
 
 # Kernel
 BOARD_KERNEL_CMDLINE := console=null androidboot.hardware=qcom androidboot.memcg=1 lpm_levels.sleep_disabled=1 video=vfb:640x400,bpp=32,memsize=3072000 msm_rtb.filter=0x237 service_locator.enable=1 swiotlb=1 androidboot.usbcontroller=a600000.dwc3 firmware_class.path=/vendor/firmware_mnt/image nokaslr printk.devkmsg=on
@@ -66,6 +68,12 @@ TARGET_KERNEL_CONFIG := m51_defconfig
 # Platform
 TARGET_BOARD_PLATFORM := sm6150
 
+# Dynamic Partitions
+BOARD_SUPER_PARTITION_SIZE := 8053063680
+BOARD_SUPER_PARTITION_GROUPS := qti_dynamic_partitions
+BOARD_QTI_DYNAMIC_PARTITIONS_PARTITION_LIST := system odm product vendor
+BOARD_QTI_DYNAMIC_PARTITIONS_SIZE := 8048869376
+
 # Recovery
 TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
 
@@ -80,3 +88,12 @@ TW_EXTRA_LANGUAGES := true
 TW_SCREEN_BLANK_ON_BOOT := true
 TW_INPUT_BLACKLIST := "hbtp_vm"
 TW_USE_TOOLBOX := true
+TW_HAS_DOWNLOAD_MODE := true
+TWRP_INCLUDE_LOGCAT := true
+TARGET_USES_LOGD := true
+
+# Cpu
+TW_CUSTOM_CPU_TEMP_PATH := /sys/class/thermal/thermal_zone17/temp
+
+# System Prop
+TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
