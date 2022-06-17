@@ -41,10 +41,10 @@ TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 TARGET_USES_MKE2FS := true
 TARGET_COPY_OUT_VENDOR := vendor
-BOARD_SUPPRESS_SECURE_ERASE := true
+BOARD_BUILD_SYSTEM_ROOT_IMAGE := false
 
 # Kernel
-BOARD_KERNEL_CMDLINE := console=null androidboot.hardware=qcom androidboot.memcg=1 lpm_levels.sleep_disabled=1 video=vfb:640x400,bpp=32,memsize=3072000 msm_rtb.filter=0x237 service_locator.enable=1 swiotlb=1 androidboot.usbcontroller=a600000.dwc3 firmware_class.path=/vendor/firmware_mnt/image nokaslr printk.devkmsg=on
+BOARD_KERNEL_CMDLINE := console=null androidboot.hardware=qcom androidboot.memcg=1 lpm_levels.sleep_disabled=1 video=vfb:640x400,bpp=32,memsize=3072000 msm_rtb.filter=0x237 service_locator.enable=1 swiotlb=1 androidboot.usbcontroller=a600000.dwc3 firmware_class.path=/vendor/firmware_mnt/image nokaslr printk.devkmsg=on androidboot.usbconfigfs=true
 TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/Image.gz
 TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilt/dtb.img
 BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilt/dtbo.img
@@ -88,12 +88,25 @@ TW_EXTRA_LANGUAGES := true
 TW_SCREEN_BLANK_ON_BOOT := true
 TW_INPUT_BLACKLIST := "hbtp_vm"
 TW_USE_TOOLBOX := true
-TW_HAS_DOWNLOAD_MODE := true
-TWRP_INCLUDE_LOGCAT := true
-TARGET_USES_LOGD := true
 
 # Cpu
-TW_CUSTOM_CPU_TEMP_PATH := /sys/class/thermal/thermal_zone17/temp
+TW_CUSTOM_CPU_TEMP_PATH := /sys/class/thermal/thermal_zone18/temp
+
+# Mass Storage
+TARGET_USE_CUSTOM_LUN_FILE_PATH := "/config/usb_gadget/g1/functions/mass_storage.0/lun.%d/file"
+
+# Usb
+TW_EXCLUDE_DEFAULT_USB_INIT := true
+TARGET_RECOVERY_QCOM_RTC_FIX := true
+
+# Sdcard
+RECOVERY_SDCARD_ON_DATA := true
+
+# Download Mode
+TW_HAS_DOWNLOAD_MODE := true
 
 # System Prop
 TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
+
+# Exclude Apex
+TW_EXCLUDE_APEX := true
